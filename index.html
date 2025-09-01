@@ -12,6 +12,16 @@
         .font-playfair { font-family: 'Playfair Display', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         
+        /* Prevent horizontal scroll */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         .gradient-bg {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
@@ -261,6 +271,27 @@
         .stagger-6 { animation-delay: 0.6s; }
         .stagger-7 { animation-delay: 0.7s; }
         .stagger-8 { animation-delay: 0.8s; }
+        
+        /* Mobile Responsive Fixes */
+        @media (max-width: 640px) {
+            .grid {
+                gap: 1.5rem;
+            }
+            
+            .service-card {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            
+            .floating-1, .floating-2, .floating-3 {
+                animation: none;
+            }
+            
+            .typewriter {
+                animation: none;
+                border-right: none;
+            }
+        }
     </style>
 </head>
 <body class="font-inter bg-white">
@@ -289,7 +320,7 @@
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 invisible transition-all duration-300 md:hidden"></div>
     
     <!-- Mobile Sidebar -->
-    <div id="mobileSidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 md:hidden">
+    <div id="mobileSidebar" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 md:hidden">
         <div class="flex flex-col h-full">
             <!-- Sidebar Header -->
             <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-emerald-50 via-yellow-50 to-teal-50">
@@ -349,11 +380,13 @@
     </nav>
 
     <!-- Hero Section with Slider -->
-    <section id="home" class="hero-slider min-h-screen md:min-h-screen pt-16 relative" style="min-height: 120vh;">
+    <section id="home" class="hero-slider min-h-screen pt-16 relative overflow-hidden">
         <style>
             @media (max-width: 768px) {
                 #home {
-                    min-height: 120vh !important;
+                    min-height: 100vh !important;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
                 }
             }
         </style>
@@ -372,13 +405,13 @@
         
         <!-- Slide 1 -->
         <div class="hero-slide active gradient-bg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20 min-h-screen flex items-center">
                 <div class="grid lg:grid-cols-2 gap-12 items-center w-full">
                     <div class="scroll-animate-left order-2 lg:order-1">
-                        <h1 class="font-playfair text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
-                            Your Journey to <span class="text-emerald-600 typewriter block sm:inline">Peace, Wellness & Beauty</span> <span class="text-yellow-500">Begins Here</span>
+                        <h1 class="font-playfair text-2xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                            Your Journey to <span class="text-emerald-600 typewriter block sm:inline">Peace & Wellness</span> <span class="text-yellow-500">Begins Here</span>
                         </h1>
-                        <p class="text-xl text-gray-600 mb-8 leading-relaxed scroll-animate stagger-1">
+                        <p class="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed scroll-animate stagger-1">
                             Experience a peaceful retreat at Mphatisi Beauty Hub, where traditional techniques meet modern innovations.
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4 scroll-animate stagger-2">
@@ -413,13 +446,13 @@
         
         <!-- Slide 2 -->
         <div class="hero-slide bg-gradient-to-br from-teal-50 to-emerald-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20 min-h-screen flex items-center">
                 <div class="grid lg:grid-cols-2 gap-12 items-center w-full">
                     <div class="order-2 lg:order-1">
-                        <h1 class="font-playfair text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                        <h1 class="font-playfair text-2xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
                             Relax & <span class="text-teal-600 block sm:inline">Rejuvenate</span> <span class="text-yellow-500">Your Spirit</span>
                         </h1>
-                        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        <p class="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
                             Discover our eco-friendly treatments designed to restore balance and harmony to your mind, body, and soul.
                         </p>
                         <div class="flex items-center space-x-6 mb-8">
@@ -454,13 +487,13 @@
         
         <!-- Slide 3 -->
         <div class="hero-slide bg-gradient-to-br from-emerald-50 to-teal-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20 min-h-screen flex items-center">
                 <div class="grid lg:grid-cols-2 gap-12 items-center w-full">
                     <div class="order-2 lg:order-1">
-                        <h1 class="font-playfair text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                        <h1 class="font-playfair text-2xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
                             Premium <span class="text-emerald-600 block sm:inline">Spa Experience</span> <span class="text-yellow-500">Awaits</span>
                         </h1>
-                        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        <p class="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
                             Indulge in our luxurious treatments at Gija Lifestyle, where every detail is crafted for your ultimate comfort.
                         </p>
                         <div class="grid grid-cols-2 gap-4 mb-8">
@@ -1019,7 +1052,7 @@
                         Your journey to peace, wellness, and beauty begins here. Experience the perfect blend of traditional techniques and modern innovations.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors">
+                        <a href="https://www.facebook.com/profile.php?id=61577019956588&rdid=Ywam3Eabd4IPYX8y&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F198agKH3Wj%2F" class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors">
@@ -1346,5 +1379,5 @@
             changeContentSlide(1);
         }, 8000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9783b22021cf3575',t:'MTc1NjcxODQ2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9783e024b7f57405',t:'MTc1NjcyMDM1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
