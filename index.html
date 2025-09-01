@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mphatisi Beauty Hub - Your Journey to Peace, Wellness & Beauty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        /* Hero Slider Styles */
+        .hero-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 1s ease-in-out;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .hero-slide.prev {
+            transform: translateX(-100%);
+        }
+        
+        /* Content Slider Styles */
+        .content-slider {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .content-slides {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .content-slide {
+            min-width: 100%;
+            padding: 0 20px;
+        }
+        
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-animate-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-animate-left.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-animate-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-animate-scale.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Service Card Animations */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        /* Floating Animations */
+        .floating-1 {
+            animation: float1 6s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            animation: float2 8s ease-in-out infinite;
+        }
+        
+        .floating-3 {
+            animation: float3 7s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-3deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(2deg); }
+        }
+        
+        /* Pulse Animation */
+        .pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); }
+        }
+        
+        /* Typewriter Effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #10b981;
+            white-space: nowrap;
+            animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #10b981; }
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Navigation Effects */
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Button Ripple Effect */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Stagger Delays */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        .stagger-7 { animation-delay: 0.7s; }
+        .stagger-8 { animation-delay: 0.8s; }
+    </style>
+</head>
+<body class="font-inter bg-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full nav-blur z-50 shadow-lg transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="font-playfair text-2xl font-bold text-emerald-700 scroll-animate-left">
+                    <i class="fas fa-spa mr-2"></i>Mphatisi Beauty Hub
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"><i class="fas fa-home mr-1"></i>Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"><i class="fas fa-info-circle mr-1"></i>About</a>
+                    <a href="#services" class="text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"><i class="fas fa-concierge-bell mr-1"></i>Services</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"><i class="fas fa-images mr-1"></i>Gallery</a>
+                    <a href="#contact" class="text-gray-700 hover:text-emerald-600 transition-all duration-300 hover:scale-105"><i class="fas fa-envelope mr-1"></i>Contact</a>
+                </div>
+                <button class="md:hidden text-gray-700 hover:text-emerald-600 transition-colors" onclick="toggleSidebar()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 invisible transition-all duration-300 md:hidden"></div>
+    
+    <!-- Mobile Sidebar -->
+    <div id="mobileSidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col h-full">
+            <!-- Sidebar Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-emerald-50 to-teal-50">
+                <div class="font-playfair text-xl font-bold text-emerald-700">
+                    <i class="fas fa-spa mr-2"></i>Mphatisi Beauty Hub
+                </div>
+                <button onclick="closeSidebar()" class="text-gray-600 hover:text-emerald-600 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Sidebar Navigation -->
+            <div class="flex-1 py-6">
+                <nav class="space-y-2 px-4">
+                    <a href="#home" onclick="closeSidebar()" class="flex items-center px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all duration-300 group">
+                        <i class="fas fa-home mr-4 text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+                    <a href="#about" onclick="closeSidebar()" class="flex items-center px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all duration-300 group">
+                        <i class="fas fa-info-circle mr-4 text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">About Us</span>
+                    </a>
+                    <a href="#services" onclick="closeSidebar()" class="flex items-center px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all duration-300 group">
+                        <i class="fas fa-concierge-bell mr-4 text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">Services</span>
+                    </a>
+                    <a href="#gallery" onclick="closeSidebar()" class="flex items-center px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all duration-300 group">
+                        <i class="fas fa-images mr-4 text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">Gallery</span>
+                    </a>
+                    <a href="#contact" onclick="closeSidebar()" class="flex items-center px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 rounded-xl transition-all duration-300 group">
+                        <i class="fas fa-envelope mr-4 text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="font-medium">Contact</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Sidebar Footer -->
+            <div class="p-6 border-t border-gray-200 bg-gray-50">
+                <div class="text-center mb-4">
+                    <p class="text-sm text-gray-600 mb-3">Ready to book?</p>
+                    <a href="https://wa.me/27695090037" class="inline-flex items-center justify-center w-full bg-green-600 text-white px-4 py-3 rounded-xl font-semibold hover:bg-green-700 transition-colors">
+                        <i class="fab fa-whatsapp mr-2"></i>WhatsApp Us
+                    </a>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white hover:bg-emerald-700 transition-colors">
+                        <i class="fab fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white hover:bg-emerald-700 transition-colors">
+                        <i class="fab fa-instagram text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Hero Section with Slider -->
+    <section id="home" class="hero-slider min-h-screen md:min-h-screen pt-16 relative" style="min-height: 120vh;">
+        <style>
+            @media (max-width: 768px) {
+                #home {
+                    min-height: 120vh !important;
+                }
+            }
+        </style>
+        <!-- Particles Background -->
+        <div class="particles">
+            <div class="particle" style="left: 10%; width: 4px; height: 4px; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; width: 6px; height: 6px; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 30%; width: 3px; height: 3px; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 40%; width: 5px; height: 5px; animation-delay: 6s;"></div>
+            <div class="particle" style="left: 50%; width: 4px; height: 4px; animation-delay: 8s;"></div>
+            <div class="particle" style="left: 60%; width: 6px; height: 6px; animation-delay: 10s;"></div>
+            <div class="particle" style="left: 70%; width: 3px; height: 3px; animation-delay: 12s;"></div>
+            <div class="particle" style="left: 80%; width: 5px; height: 5px; animation-delay: 14s;"></div>
+            <div class="particle" style="left: 90%; width: 4px; height: 4px; animation-delay: 16s;"></div>
+        </div>
+        
+        <!-- Slide 1 -->
+        <div class="hero-slide active gradient-bg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
+                <div class="grid lg:grid-cols-2 gap-12 items-center w-full">
+                    <div class="scroll-animate-left order-2 lg:order-1">
+                        <h1 class="font-playfair text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                            Your Journey to <span class="text-emerald-600 typewriter block sm:inline">Peace, Wellness & Beauty</span> Begins Here
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8 leading-relaxed scroll-animate stagger-1">
+                            Experience a peaceful retreat at Mphatisi Beauty Hub, where traditional techniques meet modern innovations.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 scroll-animate stagger-2">
+                            <button onclick="scrollToSection('services')" class="bg-emerald-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-emerald-700 transition-all duration-300 shadow-lg btn-ripple pulse-glow">
+                                <i class="fas fa-spa mr-2"></i>Explore Services
+                            </button>
+                            <button onclick="scrollToSection('contact')" class="border-2 border-emerald-600 text-emerald-600 px-8 py-4 rounded-full font-semibold hover:bg-emerald-600 hover:text-white transition-all duration-300 btn-ripple">
+                                <i class="fas fa-calendar-alt mr-2"></i>Book Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="scroll-animate-right floating-1 order-1 lg:order-2">
+                        <div class="relative">
+                            <div class="w-full h-64 sm:h-80 lg:h-96 rounded-3xl shadow-2xl overflow-hidden">
+                                <img src="images/hero1.jpg" 
+                                     alt="Spa Wellness Environment" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/30 to-transparent"></div>
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center floating-2">
+                                <i class="fas fa-heart text-3xl text-pink-500"></i>
+                            </div>
+                            <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-emerald-100 rounded-full shadow-lg flex items-center justify-center floating-3">
+                                <i class="fas fa-flower text-2xl text-emerald-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="hero-slide bg-gradient-to-br from-teal-50 to-emerald-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
+                <div class="grid lg:grid-cols-2 gap-12 items-center w-full">
+                    <div class="order-2 lg:order-1">
+                        <h1 class="font-playfair text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                            Relax & <span class="text-teal-600 block sm:inline">Rejuvenate</span> Your Spirit
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                            Discover our eco-friendly treatments designed to restore balance and harmony to your mind, body, and soul.
+                        </p>
+                        <div class="flex items-center space-x-6 mb-8">
+                            <div class="text-center">
+                                <i class="fas fa-leaf text-3xl text-emerald-600 mb-2"></i>
+                                <p class="text-sm font-semibold">Eco-Friendly</p>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-hands text-3xl text-teal-600 mb-2"></i>
+                                <p class="text-sm font-semibold">Expert Care</p>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-peace text-3xl text-emerald-600 mb-2"></i>
+                                <p class="text-sm font-semibold">Inner Peace</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-2 order-1 lg:order-2">
+                        <div class="relative">
+                            <div class="w-full h-64 sm:h-80 lg:h-96 rounded-3xl shadow-2xl overflow-hidden">
+                                <img src="images/hero2.jpg" 
+                                     alt="Relaxing Massage Therapy" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-teal-900/30 to-transparent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="hero-slide bg-gradient-to-br from-emerald-50 to-teal-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
+                <div class="grid lg:grid-cols-2 gap-12 items-center w-full">
+                    <div class="order-2 lg:order-1">
+                        <h1 class="font-playfair text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+                            Premium <span class="text-emerald-600 block sm:inline">Spa Experience</span> Awaits
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                            Indulge in our luxurious treatments at Gija Lifestyle, where every detail is crafted for your ultimate comfort.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="bg-white/70 p-4 rounded-xl text-center">
+                                <i class="fas fa-award text-2xl text-emerald-600 mb-2"></i>
+                                <p class="font-semibold text-sm">Award Winning</p>
+                            </div>
+                            <div class="bg-white/70 p-4 rounded-xl text-center">
+                                <i class="fas fa-users text-2xl text-teal-600 mb-2"></i>
+                                <p class="font-semibold text-sm">Expert Team</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-3 order-1 lg:order-2">
+                        <div class="relative">
+                            <div class="w-full h-64 sm:h-80 lg:h-96 rounded-3xl shadow-2xl overflow-hidden">
+                                <img src="images/hero3.jpg" 
+                                     alt="Luxury Spa Treatment Room" 
+                                     class="w-full h-full object-cover"
+                                     onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/30 to-transparent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slider Controls -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+            <button onclick="currentSlide(1)" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors slide-dot active"></button>
+            <button onclick="currentSlide(2)" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors slide-dot"></button>
+            <button onclick="currentSlide(3)" class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-colors slide-dot"></button>
+        </div>
+        
+        <!-- Navigation Arrows -->
+        <button onclick="plusSlides(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="plusSlides(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </section>
+
+    <!-- About Section with Content Slider -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-info-circle text-emerald-600 mr-3"></i>About Mphatisi Beauty Hub
+                </h2>
+                <div class="w-24 h-1 bg-emerald-600 mx-auto mb-8"></div>
+            </div>
+            
+            <div class="content-slider scroll-animate-scale">
+                <div class="content-slides" id="aboutSlides">
+                    <!-- Content Slide 1 -->
+                    <div class="content-slide">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div class="scroll-animate-left">
+                                <h3 class="font-playfair text-3xl font-semibold text-gray-800 mb-6">
+                                    <i class="fas fa-home text-emerald-600 mr-3"></i>A Sanctuary of Wellness
+                                </h3>
+                                <p class="text-gray-600 mb-6 leading-relaxed">
+                                    Located in the serene Gija Lifestyle, Mphatisi Beauty Hub offers a peaceful retreat designed to help you relax, rejuvenate, and revitalize your spirit.
+                                </p>
+                                <div class="flex items-center space-x-4 mb-6">
+                                    <i class="fas fa-leaf text-3xl text-emerald-600"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Eco-Friendly Approach</h4>
+                                        <p class="text-gray-600">Sustainable products for your wellness journey</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scroll-animate-right floating-1">
+                                <div class="bg-gradient-to-br from-emerald-100 to-teal-200 p-8 rounded-3xl">
+                                    <i class="fas fa-spa text-6xl text-emerald-600 mb-4 block text-center"></i>
+                                    <p class="text-center text-gray-700 font-semibold">Traditional meets Modern</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Slide 2 -->
+                    <div class="content-slide">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h3 class="font-playfair text-3xl font-semibold text-gray-800 mb-6">
+                                    <i class="fas fa-heart text-emerald-600 mr-3"></i>Our Philosophy
+                                </h3>
+                                <p class="text-gray-600 mb-6 leading-relaxed">
+                                    We believe in the power of holistic wellness, combining ancient wisdom with modern techniques to create transformative experiences.
+                                </p>
+                                <div class="space-y-4">
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-check-circle text-emerald-600"></i>
+                                        <span class="text-gray-700">Personalized treatment plans</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-check-circle text-emerald-600"></i>
+                                        <span class="text-gray-700">Natural and organic products</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <i class="fas fa-check-circle text-emerald-600"></i>
+                                        <span class="text-gray-700">Experienced therapists</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="floating-2">
+                                <div class="bg-gradient-to-br from-teal-100 to-emerald-200 p-8 rounded-3xl">
+                                    <i class="fas fa-yin-yang text-6xl text-teal-600 mb-4 block text-center"></i>
+                                    <p class="text-center text-gray-700 font-semibold">Balance & Harmony</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Slider Controls -->
+                <div class="flex justify-center mt-8 space-x-4">
+                    <button onclick="changeContentSlide(-1)" class="bg-emerald-600 text-white p-3 rounded-full hover:bg-emerald-700 transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button onclick="changeContentSlide(1)" class="bg-emerald-600 text-white p-3 rounded-full hover:bg-emerald-700 transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+                <div class="bg-emerald-50 p-6 rounded-2xl text-center scroll-animate stagger-1 hover:shadow-lg transition-all duration-300">
+                    <i class="fas fa-trophy text-4xl text-emerald-600 mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Premium Quality</h4>
+                    <p class="text-gray-600 text-sm">Exceptional service standards</p>
+                </div>
+                <div class="bg-teal-50 p-6 rounded-2xl text-center scroll-animate stagger-2 hover:shadow-lg transition-all duration-300">
+                    <i class="fas fa-user-friends text-4xl text-teal-600 mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Personalized Care</h4>
+                    <p class="text-gray-600 text-sm">Tailored to your needs</p>
+                </div>
+                <div class="bg-emerald-50 p-6 rounded-2xl text-center scroll-animate stagger-3 hover:shadow-lg transition-all duration-300">
+                    <i class="fas fa-peace text-4xl text-emerald-600 mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Peaceful Environment</h4>
+                    <p class="text-gray-600 text-sm">Tranquil spa atmosphere</p>
+                </div>
+                <div class="bg-teal-50 p-6 rounded-2xl text-center scroll-animate stagger-4 hover:shadow-lg transition-all duration-300">
+                    <i class="fas fa-seedling text-4xl text-teal-600 mb-3"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Eco-Conscious</h4>
+                    <p class="text-gray-600 text-sm">Environmentally friendly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-concierge-bell text-emerald-600 mr-3"></i>Our Services
+                </h2>
+                <div class="w-24 h-1 bg-emerald-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Discover our comprehensive range of wellness treatments designed to restore your body, mind, and spirit.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-white/80 p-8 rounded-3xl shadow-lg scroll-animate stagger-1">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-spa text-5xl text-emerald-600 mb-4"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-4 text-center">Full Body Massages</h3>
+                    <p class="text-gray-600 text-center leading-relaxed mb-6">
+                        Indulge in our therapeutic full body massages designed to release tension and promote deep relaxation.
+                    </p>
+                    <div class="text-center">
+                        <button class="bg-emerald-600 text-white px-6 py-2 rounded-full hover:bg-emerald-700 transition-colors btn-ripple">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white/80 p-8 rounded-3xl shadow-lg scroll-animate stagger-2">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-foot-print text-5xl text-teal-600 mb-4"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-4 text-center">Foot Scrubs & Pedicures</h3>
+                    <p class="text-gray-600 text-center leading-relaxed mb-6">
+                        Pamper your feet with our luxurious scrubs and professional pedicures for ultimate comfort.
+                    </p>
+                    <div class="text-center">
+                        <button class="bg-teal-600 text-white px-6 py-2 rounded-full hover:bg-teal-700 transition-colors btn-ripple">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white/80 p-8 rounded-3xl shadow-lg scroll-animate stagger-3">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-hands text-5xl text-emerald-600 mb-4"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-4 text-center">Back & Neck Massages</h3>
+                    <p class="text-gray-600 text-center leading-relaxed mb-6">
+                        Target specific areas of tension with our specialized massage treatments for immediate relief.
+                    </p>
+                    <div class="text-center">
+                        <button class="bg-emerald-600 text-white px-6 py-2 rounded-full hover:bg-emerald-700 transition-colors btn-ripple">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white/80 p-8 rounded-3xl shadow-lg scroll-animate stagger-4">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-sparkles text-5xl text-yellow-500 mb-4"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-4 text-center">Buff & Shine Treatments</h3>
+                    <p class="text-gray-600 text-center leading-relaxed mb-6">
+                        Reveal your natural glow with our exfoliating treatments that leave your skin radiant.
+                    </p>
+                    <div class="text-center">
+                        <button class="bg-yellow-500 text-white px-6 py-2 rounded-full hover:bg-yellow-600 transition-colors btn-ripple">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white/80 p-8 rounded-3xl shadow-lg scroll-animate stagger-5">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-heart text-5xl text-pink-500 mb-4"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-4 text-center">Couple's Spa Packages</h3>
+                    <p class="text-gray-600 text-center leading-relaxed mb-6">
+                        Share a blissful experience with your loved one in our romantic couple's packages.
+                    </p>
+                    <div class="text-center">
+                        <button class="bg-pink-500 text-white px-6 py-2 rounded-full hover:bg-pink-600 transition-colors btn-ripple">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white/80 p-8 rounded-3xl shadow-lg scroll-animate stagger-6">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-leaf text-5xl text-green-600 mb-4"></i>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-4 text-center">Custom Body Treatments</h3>
+                    <p class="text-gray-600 text-center leading-relaxed mb-6">
+                        Personalized treatments tailored specifically to your unique wellness goals.
+                    </p>
+                    <div class="text-center">
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors btn-ripple">
+                            <i class="fas fa-info-circle mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-images text-emerald-600 mr-3"></i>Our Gallery
+                </h2>
+                <div class="w-24 h-1 bg-emerald-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Take a glimpse into our serene spa environment and luxurious treatment rooms.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="scroll-animate stagger-1 group">
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <img src="images/gallery1.jpg" 
+                             alt="Spa Treatment Room" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="font-semibold">Treatment Room</h3>
+                                <p class="text-sm">Peaceful spa environment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate stagger-2 group">
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <img src="images/gallery2.jpg" 
+                             alt="Massage Therapy" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="font-semibold">Massage Therapy</h3>
+                                <p class="text-sm">Professional treatments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate stagger-3 group">
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <img src="images/gallery3.jpg" 
+                             alt="Spa Products" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="font-semibold">Premium Products</h3>
+                                <p class="text-sm">Natural & organic</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate stagger-4 group">
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <img src="images/gallery4.jpg" 
+                             alt="Relaxation Area" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="font-semibold">Relaxation Area</h3>
+                                <p class="text-sm">Tranquil atmosphere</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate stagger-5 group">
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <img src="images/gallery5.jpg" 
+                             alt="Foot Treatment" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="font-semibold">Foot Treatments</h3>
+                                <p class="text-sm">Pedicure & scrubs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate stagger-6 group">
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+                        <img src="images/gallery6.jpg" 
+                             alt="Wellness Environment" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="absolute bottom-4 left-4 text-white">
+                                <h3 class="font-semibold">Wellness Space</h3>
+                                <p class="text-sm">Holistic healing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-envelope text-emerald-600 mr-3"></i>Get In Touch
+                </h2>
+                <div class="w-24 h-1 bg-emerald-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600">Ready to begin your wellness journey? Contact us today to book your appointment.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Contact Info -->
+                <div class="scroll-animate-left">
+                    <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-8 rounded-3xl h-full">
+                        <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-6">
+                            <i class="fas fa-map-marker-alt text-emerald-600 mr-3"></i>Visit Us
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4 scroll-animate stagger-1">
+                                <i class="fas fa-location-dot text-2xl text-emerald-600 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Location</h4>
+                                    <p class="text-gray-600">Gija Lifestyle Pub and Grill Restaurant</p>
+                                    <p class="text-gray-600 text-sm">South Africa</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 scroll-animate stagger-2">
+                                <i class="fas fa-phone text-2xl text-emerald-600 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Phone</h4>
+                                    <p class="text-gray-600">067 023 1195</p>
+                                    <p class="text-gray-600">069 509 0037</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 scroll-animate stagger-3">
+                                <i class="fas fa-envelope text-2xl text-emerald-600 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Email</h4>
+                                    <p class="text-gray-600">info@mphatisihub.co.za</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-emerald-200 scroll-animate stagger-4">
+                            <h4 class="font-semibold text-gray-800 mb-4">
+                                <i class="fas fa-bolt text-emerald-600 mr-2"></i>Quick Actions
+                            </h4>
+                            <div class="flex flex-col gap-3">
+                                <a href="tel:0670231195" class="bg-emerald-600 text-white px-6 py-3 rounded-full text-center font-semibold hover:bg-emerald-700 transition-all duration-300 btn-ripple">
+                                    <i class="fas fa-phone mr-2"></i>Call Now
+                                </a>
+                                <a href="mailto:info@mphatisihub.co.za" class="border-2 border-emerald-600 text-emerald-600 px-6 py-3 rounded-full text-center font-semibold hover:bg-emerald-600 hover:text-white transition-all duration-300 btn-ripple">
+                                    <i class="fas fa-envelope mr-2"></i>Send Email
+                                </a>
+                                <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d405..!2d30..!3d-23..!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ec5b12c6092f1b5%3A0x209eb5299dada252!2sGija%20Lifestyle%20Pub%20and%20grill%20Restaurant!5e1!3m2!1sen!2sza!4v.!5m2!1sen!2sza" target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-full text-center font-semibold hover:bg-blue-700 transition-all duration-300 btn-ripple">
+                                    <i class="fas fa-map-marked-alt mr-2"></i>Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Map -->
+                <div class="scroll-animate-scale">
+                    <div class="bg-white p-4 rounded-3xl shadow-lg h-full">
+                        <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-6 text-center">
+                            <i class="fas fa-map text-emerald-600 mr-3"></i>Find Us Here
+                        </h3>
+                        <div class="relative overflow-hidden rounded-2xl shadow-lg" style="height: 400px;">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d405..!2d30..!3d-23..!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ec5b12c6092f1b5%3A0x209eb5299dada252!2sGija%20Lifestyle%20Pub%20and%20grill%20Restaurant!5e1!3m2!1sen!2sza!4v.!5m2!1sen!2sza"
+                                width="100%" 
+                                height="100%" 
+                                style="border:0; border-radius: 1rem;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Mphatisi Beauty Hub Location at Gija Lifestyle">
+                            </iframe>
+                            <!-- Map overlay for mobile touch -->
+                            <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-emerald-900/10 to-transparent rounded-2xl"></div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-gray-600 text-sm mb-3">
+                                <i class="fas fa-info-circle text-emerald-600 mr-1"></i>
+                                Located inside Gija Lifestyle Pub and Grill
+                            </p>
+                            <div class="flex justify-center space-x-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                                    <i class="fas fa-parking mr-1"></i>Parking Available
+                                </span>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                    <i class="fas fa-wheelchair mr-1"></i>Accessible
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Form -->
+                <div class="scroll-animate-right">
+                    <div class="bg-gray-50 p-8 rounded-3xl h-full">
+                        <h3 class="font-playfair text-2xl font-semibold text-gray-800 mb-6">
+                            <i class="fas fa-calendar-check text-emerald-600 mr-3"></i>Book Your Appointment
+                        </h3>
+                        <form class="space-y-6" onsubmit="handleWhatsAppBooking(event)" id="bookingForm">
+                            <div class="scroll-animate stagger-1">
+                                <label class="block text-gray-700 font-semibold mb-2">
+                                    <i class="fas fa-user mr-2"></i>Full Name
+                                </label>
+                                <input type="text" id="fullName" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300">
+                            </div>
+                            
+                            <div class="scroll-animate stagger-2">
+                                <label class="block text-gray-700 font-semibold mb-2">
+                                    <i class="fas fa-phone mr-2"></i>Phone Number
+                                </label>
+                                <input type="tel" id="phoneNumber" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300">
+                            </div>
+                            
+                            <div class="scroll-animate stagger-3">
+                                <label class="block text-gray-700 font-semibold mb-2">
+                                    <i class="fas fa-envelope mr-2"></i>Email
+                                </label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300">
+                            </div>
+                            
+                            <div class="scroll-animate stagger-4">
+                                <label class="block text-gray-700 font-semibold mb-2">
+                                    <i class="fas fa-spa mr-2"></i>Preferred Service
+                                </label>
+                                <select id="preferredService" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300">
+                                    <option value="">Select a service</option>
+                                    <option value="Full Body Massage">Full Body Massage</option>
+                                    <option value="Foot Scrub & Pedicure">Foot Scrub & Pedicure</option>
+                                    <option value="Back & Neck Massage">Back & Neck Massage</option>
+                                    <option value="Buff & Shine Treatment">Buff & Shine Treatment</option>
+                                    <option value="Couple's Spa Package">Couple's Spa Package</option>
+                                    <option value="Custom Body Treatment">Custom Body Treatment</option>
+                                </select>
+                            </div>
+                            
+                            <div class="scroll-animate stagger-5">
+                                <label class="block text-gray-700 font-semibold mb-2">
+                                    <i class="fas fa-calendar mr-2"></i>Preferred Date & Time
+                                </label>
+                                <input type="datetime-local" id="preferredDateTime" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300">
+                            </div>
+                            
+                            <div class="scroll-animate stagger-6">
+                                <label class="block text-gray-700 font-semibold mb-2">
+                                    <i class="fas fa-comment mr-2"></i>Message (Optional)
+                                </label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300" placeholder="Any special requests or questions..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-green-600 text-white py-4 rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg btn-ripple scroll-animate stagger-7">
+                                <i class="fab fa-whatsapp mr-2"></i>Book via WhatsApp
+                            </button>
+                        </form>
+                        
+                        <div class="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl scroll-animate stagger-8">
+                            <p class="text-green-800 text-sm">
+                                <i class="fab fa-whatsapp mr-2"></i><strong>WhatsApp Booking:</strong> Click the button above to send your booking details directly via WhatsApp.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mb-12">
+                <!-- Brand Section -->
+                <div class="scroll-animate stagger-1">
+                    <div class="font-playfair text-2xl font-bold mb-4">
+                        <i class="fas fa-spa mr-2 text-emerald-400"></i>Mphatisi Beauty Hub
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Your journey to peace, wellness, and beauty begins here. Experience the perfect blend of traditional techniques and modern innovations.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/profile.php?id=61577019956588&rdid=Ywam3Eabd4IPYX8y&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F198agKH3Wj%2F" class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/27695090037" class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="scroll-animate stagger-2">
+                    <h3 class="font-semibold text-lg mb-4 text-emerald-400">
+                        <i class="fas fa-link mr-2"></i>Quick Links
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-home mr-2 text-sm"></i>Home</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-info-circle mr-2 text-sm"></i>About Us</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-concierge-bell mr-2 text-sm"></i>Services</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-images mr-2 text-sm"></i>Gallery</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-envelope mr-2 text-sm"></i>Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div class="scroll-animate stagger-3">
+                    <h3 class="font-semibold text-lg mb-4 text-emerald-400">
+                        <i class="fas fa-spa mr-2"></i>Our Services
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-hands mr-2 text-sm"></i>Full Body Massage</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-foot-print mr-2 text-sm"></i>Foot Scrubs & Pedicures</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-user-friends mr-2 text-sm"></i>Back & Neck Massage</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-sparkles mr-2 text-sm"></i>Buff & Shine Treatments</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-emerald-400 transition-colors flex items-center"><i class="fas fa-heart mr-2 text-sm"></i>Couple's Packages</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="scroll-animate stagger-4">
+                    <h3 class="font-semibold text-lg mb-4 text-emerald-400">
+                        <i class="fas fa-address-book mr-2"></i>Contact Info
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-emerald-400 mt-1"></i>
+                            <div>
+                                <p class="text-gray-300">Gija Lifestyle</p>
+                                <p class="text-gray-400 text-sm">South Africa</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-emerald-400 mt-1"></i>
+                            <div>
+                                <a href="tel:0670231195" class="text-gray-300 hover:text-emerald-400 transition-colors block">067 023 1195</a>
+                                <a href="tel:0695090037" class="text-gray-300 hover:text-emerald-400 transition-colors block">069 509 0037</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-envelope text-emerald-400 mt-1"></i>
+                            <div>
+                                <a href="mailto:info@mphatisihub.co.za" class="text-gray-300 hover:text-emerald-400 transition-colors">info@mphatisihub.co.za</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fab fa-whatsapp text-green-400 mt-1"></i>
+                            <div>
+                                <a href="https://wa.me/27695090037" class="text-gray-300 hover:text-green-400 transition-colors">WhatsApp Booking</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-700 pt-8 scroll-animate stagger-5">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                        © 2024 Mphatisi Beauty Hub. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6 text-sm">
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-emerald-400 transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hero Slider Variables
+        let slideIndex = 1;
+        let slideInterval;
+        
+        // Content Slider Variables
+        let contentSlideIndex = 0;
+        
+        // Initialize sliders
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlides(slideIndex);
+            startAutoSlide();
+            initScrollAnimations();
+        });
+        
+        // Hero Slider Functions
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+            resetAutoSlide();
+        }
+        
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+            resetAutoSlide();
+        }
+        
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.slide-dot');
+            
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+            
+            slides.forEach(slide => {
+                slide.classList.remove('active', 'prev');
+            });
+            
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            if (slides[slideIndex - 1]) {
+                slides[slideIndex - 1].classList.add('active');
+            }
+            
+            if (dots[slideIndex - 1]) {
+                dots[slideIndex - 1].classList.add('active');
+            }
+        }
+        
+        function startAutoSlide() {
+            slideInterval = setInterval(() => {
+                slideIndex++;
+                showSlides(slideIndex);
+            }, 5000);
+        }
+        
+        function resetAutoSlide() {
+            clearInterval(slideInterval);
+            startAutoSlide();
+        }
+        
+        // Content Slider Functions
+        function changeContentSlide(direction) {
+            const slides = document.getElementById('aboutSlides');
+            const slideCount = slides.children.length;
+            
+            contentSlideIndex += direction;
+            
+            if (contentSlideIndex >= slideCount) {
+                contentSlideIndex = 0;
+            }
+            if (contentSlideIndex < 0) {
+                contentSlideIndex = slideCount - 1;
+            }
+            
+            const translateX = -contentSlideIndex * 100;
+            slides.style.transform = `translateX(${translateX}%)`;
+        }
+        
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all scroll-animate elements
+            document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Mobile Sidebar Functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.remove('translate-x-full');
+            overlay.classList.remove('invisible', 'opacity-0');
+            overlay.classList.add('visible', 'opacity-100');
+            
+            // Add click listener to overlay
+            overlay.addEventListener('click', closeSidebar);
+        }
+        
+        function closeSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.add('translate-x-full');
+            overlay.classList.add('invisible', 'opacity-0');
+            overlay.classList.remove('visible', 'opacity-100');
+        }
+        
+        // Smooth Scrolling
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            const navHeight = 80;
+            const elementPosition = element.offsetTop - navHeight;
+            
+            window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth'
+            });
+        }
+        
+        // WhatsApp Booking Function
+        function handleWhatsAppBooking(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+            const preferredService = document.getElementById('preferredService').value;
+            const preferredDateTime = document.getElementById('preferredDateTime').value;
+            const message = document.getElementById('message').value;
+            
+            // Format date and time
+            let dateTimeText = '';
+            if (preferredDateTime) {
+                const dateTime = new Date(preferredDateTime);
+                dateTimeText = dateTime.toLocaleString('en-ZA', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+            
+            // Create WhatsApp message
+            let whatsappMessage = `🌿 *Spa Booking Request* 🌿\n\n`;
+            whatsappMessage += `👤 *Name:* ${fullName}\n`;
+            whatsappMessage += `📱 *Phone:* ${phoneNumber}\n`;
+            whatsappMessage += `📧 *Email:* ${email}\n`;
+            whatsappMessage += `💆‍♀️ *Service:* ${preferredService}\n`;
+            if (dateTimeText) {
+                whatsappMessage += `📅 *Preferred Date & Time:* ${dateTimeText}\n`;
+            }
+            if (message) {
+                whatsappMessage += `💬 *Message:* ${message}\n`;
+            }
+            whatsappMessage += `\nThank you! 🙏`;
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // WhatsApp URL
+            const whatsappURL = `https://wa.me/27695090037?text=${encodedMessage}`;
+            
+            // Add loading animation to button
+            const button = event.target.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Opening WhatsApp...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                // Open WhatsApp
+                window.open(whatsappURL, '_blank');
+                
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                // Reset form
+                document.getElementById('bookingForm').reset();
+            }, 1000);
+        }
+        
+        // Navigation Links Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = 80;
+                    const elementPosition = target.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: elementPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Close sidebar when clicking on links (handled by onclick in HTML)
+        // Sidebar links automatically close via onclick="closeSidebar()" in HTML
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-xl');
+            } else {
+                navbar.classList.remove('shadow-xl');
+            }
+        });
+        
+        // Auto-advance content slider
+        setInterval(() => {
+            changeContentSlide(1);
+        }, 8000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9783a23645fb4eb7',t:'MTc1NjcxNzgxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
